@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OCAB – Appportal</title>
+<meta name="description" content="OCAB:s samlade portal för interna appar och verktyg inom sanering." />
+<style>
+  :root{
+    --ocab-blue:#0a3d7a;
+    --ocab-blue-dark:#072c5a;
+    --ocab-blue-light:#e9f0fa;
+    --ocab-accent:#e30613;
+    --ocab-grey:#4a4a4a;
+    --ocab-bg:#f6f8fb;
+    --ocab-card:#ffffff;
+    --ocab-border:#e1e6ee;
+    --ocab-text:#1a1a1a;
+    --ocab-muted:#6b7280;
+    --shadow-sm:0 1px 2px rgba(10,61,122,.06);
+    --shadow-md:0 4px 12px rgba(10,61,122,.08);
+    --shadow-lg:0 10px 30px rgba(10,61,122,.12);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ocab-text);
+    background:var(--ocab-bg);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* Topbar */
+  header.topbar{
+    background:#fff;
+    border-bottom:1px solid var(--ocab-border);
+    position:sticky;top:0;z-index:50;
+    box-shadow:var(--shadow-sm);
+  }
+  .topbar-inner{
+    max-width:1200px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 24px;
+  }
+  .logo{
+    display:flex;align-items:center;gap:12px;
+    font-weight:800;letter-spacing:.5px;
+  }
+  .logo-mark{
+    width:42px;height:42px;border-radius:8px;
+    background:linear-gradient(135deg,var(--ocab-blue) 0%,var(--ocab-blue-dark) 100%);
+    color:#fff;display:grid;place-items:center;
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    box-shadow:var(--shadow-sm);
+  }
+  .logo-text{font-size:18px;color:var(--ocab-blue-dark)}
+  .logo-text small{display:block;font-size:11px;font-weight:500;color:var(--ocab-muted);letter-spacing:.5px}
+  nav.topnav a{
+    color:var(--ocab-grey);font-weight:500;font-size:14px;
+    padding:8px 14px;border-radius:6px;transition:all .2s;
+  }
+  nav.topnav a:hover{background:var(--ocab-blue-light);color:var(--ocab-blue-dark)}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg,var(--ocab-blue) 0%,var(--ocab-blue-dark) 100%);
+    color:#fff;padding:64px 24px 88px;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-80px;bottom:-80px;
+    width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(227,6,19,.18) 0%,transparent 70%);
+  }
+  .hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+  .hero h1{
+    font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.15;
+    margin-bottom:14px;max-width:760px;
+  }
+  .hero p{
+    font-size:17px;color:rgba(255,255,255,.85);max-width:640px;
+  }
+  .hero .accent-bar{
+    width:64px;height:4px;background:var(--ocab-accent);
+    border-radius:2px;margin-bottom:22px;
+  }
+
+  /* Main */
+  main{max-width:1200px;margin:-48px auto 0;padding:0 24px 64px;position:relative;z-index:2}
+  .section-head{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    margin-bottom:24px;flex-wrap:wrap;gap:12px;
+  }
+  .section-head h2{
+    font-size:22px;font-weight:700;color:var(--ocab-blue-dark);
+  }
+  .section-head .count{
+    font-size:13px;color:var(--ocab-muted);font-weight:500;
+  }
+
+  /* Grid */
+  .app-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:20px;
+  }
+  .app-card{
+    background:var(--ocab-card);
+    border:1px solid var(--ocab-border);
+    border-radius:12px;
+    padding:24px;
+    display:flex;flex-direction:column;gap:14px;
+    transition:all .25s ease;
+    box-shadow:var(--shadow-sm);
+    position:relative;overflow:hidden;
+  }
+  .app-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--ocab-blue);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .3s ease;
+  }
+  .app-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-lg);
+    border-color:var(--ocab-blue);
+  }
+  .app-card:hover::before{transform:scaleX(1)}
+  .app-card .icon{
+    width:48px;height:48px;border-radius:10px;
+    background:var(--ocab-blue-light);
+    color:var(--ocab-blue-dark);
+    display:grid;place-items:center;
+    font-size:22px;
+  }
+  .app-card h3{
+    font-size:17px;font-weight:700;color:var(--ocab-blue-dark);
+  }
+  .app-card p{
+    font-size:14px;color:var(--ocab-muted);flex-grow:1;
+  }
+  .app-card .cta{
+    display:inline-flex;align-items:center;gap:6px;
+    color:var(--ocab-blue);font-weight:600;font-size:14px;
+    margin-top:4px;
+  }
+  .app-card .cta::after{
+    content:"→";transition:transform .2s;
+  }
+  .app-card:hover .cta::after{transform:translateX(4px)}
+  .app-card.disabled{opacity:.55;cursor:not-allowed}
+  .app-card.disabled:hover{transform:none;box-shadow:var(--shadow-sm);border-color:var(--ocab-border)}
+  .app-card.disabled:hover::before{transform:scaleX(0)}
+  .badge{
+    display:inline-block;font-size:11px;font-weight:600;
+    padding:3px 8px;border-radius:4px;letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+  .badge-live{background:#e8f5e9;color:#1b5e20}
+  .badge-soon{background:#fff4e5;color:#7a4a00}
+
+  /* Footer */
+  footer{
+    background:#fff;border-top:1px solid var(--ocab-border);
+    padding:32px 24px;margin-top:auto;
+  }
+  .footer-inner{
+    max-width:1200px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:12px;
+    font-size:13px;color:var(--ocab-muted);
+  }
+  .footer-inner a:hover{color:var(--ocab-blue)}
+
+  @media (max-width:640px){
+    .topbar-inner{padding:14px 16px}
+    nav.topnav{display:none}
+    .hero{padding:48px 16px 72px}
+    main{padding:0 16px 48px}
+    .app-card{padding:20px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <div class="logo-mark">OCAB</div>
+      <div class="logo-text">
+        Appportal
+        <small>Sanering · Brand · Vatten · Mögel</small>
+      </div>
+    </div>
+    <nav class="topnav">
+      <a href="#appar">Appar</a>
+      <a href="https://www.ocab.se" target="_blank" rel="noopener">ocab.se</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="accent-bar"></div>
+    <h1>Verktyg och appar för OCAB</h1>
+    <p>En samlad portal för interna verktyg som stöttar vårt dagliga arbete inom sanering – från kunskapsbank till checklistor och rapportering.</p>
+  </div>
+</section>
+
+<main id="appar">
+  <div class="section-head">
+    <h2>Tillgängliga appar</h2>
+    <span class="count" id="appCount"></span>
+  </div>
+
+  <div class="app-grid" id="appGrid">
+    <!-- Apps renderas via JS för att enkelt kunna lägga till fler -->
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© <span id="year"></span> OCAB – Ocab Sanering AB</div>
+    <div><a href="https://www.ocab.se" target="_blank" rel="noopener">www.ocab.se</a></div>
+  </div>
+</footer>
+
+<script>
+  // Lista över appar – lägg enkelt till fler objekt här när nya appar publiceras.
+  const apps = [
+    {
+      title: "OCAB Kunskapsbank",
+      description: "Samlad kunskap, rutiner och referensmaterial för saneringsuppdrag – sökbart och alltid uppdaterat.",
+      icon: "📚",
+      url: "OCAB_Kunskapsbank.html",
+      status: "live"
+    }
+    // Lägg till nya appar nedan, t.ex.:
+    // {
+    //   title: "Skadeanmälan",
+    //   description: "Snabb registrering av nya skadeärenden direkt i fält.",
+    //   icon: "📝",
+    //   url: "skadeanmalan.html",
+    //   status: "soon"
+    // },
+  ];
+
+  const grid = document.getElementById("appGrid");
+  const countEl = document.getElementById("appCount");
+
+  apps.forEach(app => {
+    const isLive = app.status === "live";
+    const card = document.createElement(isLive ? "a" : "div");
+    card.className = "app-card" + (isLive ? "" : " disabled");
+    if (isLive) card.href = app.url;
+
+    card.innerHTML = `
+      <div class="icon">${app.icon || "🔧"}</div>
+      <h3>${app.title}</h3>
+      <p>${app.description}</p>
+      <div>
+        ${isLive
+          ? '<span class="badge badge-live">Aktiv</span>'
+          : '<span class="badge badge-soon">Kommer snart</span>'}
+      </div>
+      ${isLive ? '<span class="cta">Öppna app</span>' : ''}
+    `;
+    grid.appendChild(card);
+  });
+
+  countEl.textContent = apps.length + (apps.length === 1 ? " app" : " appar");
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
